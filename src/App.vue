@@ -1,3 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import PageConteiner from './components/UI/PageConteiner.vue';
+</script>
 
-<template>tst</template>
+<template>
+  <PageConteiner>
+    <RouterView />
+  </PageConteiner>
+</template>
