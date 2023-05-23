@@ -9,6 +9,16 @@ const router = createRouter({
       name: 'home',
       component: MainView,
     },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: MainView,
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      component: MainView,
+    },
   ],
 });
 
