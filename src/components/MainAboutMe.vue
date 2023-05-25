@@ -29,7 +29,7 @@ import ExternalLink from './ExternalLink.vue';
         </p>
         <ExternalLink
           href="https://github.com/otr-web-study"
-          class="font-medium text-[14px] leading-[17px]"
+          class="!font-medium !text-[14px] !leading-[17px]"
         >
           Github
         </ExternalLink>
@@ -37,7 +37,7 @@ import ExternalLink from './ExternalLink.vue';
       <img
         class="w-full h-full mx-auto rounded-[10px] object-cover [@media(min-width:419px)]:w-[290px] [@media(min-width:419px)]:h-[352px] md:mx-0 md:w-[255px] md:h-[307px] xl:w-[270px] xl:h-[327px]"
         alt="Фото студента"
-        src="/public/images/Python.jpg"
+        src="/images/Python.jpg"
       />
     </div>
   </section>

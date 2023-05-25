@@ -5,6 +5,7 @@ interface LinkProps {
   };
   class?: string;
 }
+
 const props = defineProps<LinkProps>();
 </script>
 

@@ -6,15 +6,17 @@ import MainAboutProject from '@/components/MainAboutProject.vue';
 import MainTechs from '@/components/MainTechs.vue';
 import MainAboutMe from '@/components/MainAboutMe.vue';
 import MainPortfolio from '@/components/MainPortfolio.vue';
+import AppFooter from '@/components/AppFooter.vue';
 </script>
 
 <template>
-  <ContentContainer>
+  <ContentContainer class="bg-[#073042]">
     <AppHeader />
     <MainPromo />
     <MainAboutProject />
     <MainTechs />
     <MainAboutMe />
     <MainPortfolio />
+    <AppFooter />
   </ContentContainer>
 </template>
