@@ -11,9 +11,7 @@ import InputWhithValidation from '@/components/InputWhithValidation.vue';
 const schema = toTypedSchema(
   object({
     email: string().required('Поле обязательно к заполнению.').email('Введите корректный email.'),
-    password: string()
-      .required('Поле обязательно к заполнению.')
-      .min(8, 'Минимальная длина поля 8 символов.'),
+    password: string().required('Поле обязательно к заполнению.'),
   }),
 );
 
@@ -30,20 +28,18 @@ const disabled = computed(() => {
 
 <template>
   <ContentContainer>
-    <section
-      class="flex flex-col w-[260px] self-center min-h-full [@media(min-width:500px)]:w-[396px]"
-    >
+    <section class="flex flex-col w-[260px] self-center min-[500px]:w-[396px]">
       <form
         name="loginForm"
         id="loginForm"
-        class="flex flex-col justify-between min-h-[100vh] pt-[56px] pb-[30px] [@media(min-width:500px)]:pb-[56px] xl:py-[70px]"
+        class="flex flex-col justify-between min-h-[100vh] pt-[56px] pb-[30px] min-[500px]:pb-[56px] xl:py-[70px]"
         noValidate
         @submit.prevent="onSubmit"
       >
         <div class="flex flex-col">
-          <AppLogo class="!self-center [@media(min-width:500px)]:!self-start" />
+          <AppLogo class="!self-center min-[500px]:!self-start" />
           <h1
-            class="text-[24px] leading-[29px] font-medium self-center mt-[50px] mb-20 [@media(min-width:500px)]:self-start [@media(min-width:500px)]:mt-12 [@media(min-width:500px)]:mb-10"
+            class="text-[24px] leading-[29px] font-medium self-center mt-[50px] mb-20 min-[500px]:self-start min-[500px]:mt-12 min-[500px]:mb-10"
           >
             Рады видеть!
           </h1>
@@ -55,7 +51,7 @@ const disabled = computed(() => {
         <div class="flex flex-col">
           <button
             type="submit"
-            class="transition-opacity hover:opacity-80 !h-[45px] !bg-[#4285F4] !text-white !border-none !rounded-[3px] !font-medium !text-[12px] !leading-[15px] [@media(min-width:500px)]:!text-[14px] [@media(min-width:500px)]:!leading-[17px]"
+            class="transition-opacity hover:opacity-80 !h-[45px] !bg-[#4285F4] !text-white !border-none !rounded-[3px] !font-medium !text-[12px] !leading-[15px] min-[500px]:!text-[14px] min-[500px]:!leading-[17px]"
             :class="{
               '!text-black !pointer-events-none !select-none !opacity-50': disabled,
             }"
@@ -65,13 +61,13 @@ const disabled = computed(() => {
           </button>
           <div class="flex justify-center gap-[6px] my-4">
             <p
-              class="!text-[#8B8B8B] !text-[12px] !leading-[15px] [@media(min-width:500px)]:!text-[14px] [@media(min-width:500px)]:!leading-[17px]"
+              class="!text-[#8B8B8B] !text-[12px] !leading-[15px] min-[500px]:!text-[14px] min-[500px]:!leading-[17px]"
             >
               Ещё не зарегистрированы?
             </p>
             <AppLink
               :to="{ name: 'signup' }"
-              class="!text-[#4285F4] !text-[12px] !leading-[15px] [@media(min-width:500px)]:!text-[14px] [@media(min-width:500px)]:!leading-[17px]"
+              class="!text-[#4285F4] !text-[12px] !leading-[15px] min-[500px]:!text-[14px] min-[500px]:!leading-[17px]"
             >
               Регистрация
             </AppLink>

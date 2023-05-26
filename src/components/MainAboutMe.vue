@@ -35,7 +35,7 @@ import ExternalLink from './ExternalLink.vue';
         </ExternalLink>
       </div>
       <img
-        class="w-full h-full mx-auto rounded-[10px] object-cover [@media(min-width:419px)]:w-[290px] [@media(min-width:419px)]:h-[352px] md:mx-0 md:w-[255px] md:h-[307px] xl:w-[270px] xl:h-[327px]"
+        class="w-full h-full mx-auto rounded-[10px] object-cover min-[419px]:w-[290px] min-[419px]:h-[352px] md:mx-0 md:w-[255px] md:h-[307px] xl:w-[270px] xl:h-[327px]"
         alt="Фото студента"
         src="/images/Python.jpg"
       />
