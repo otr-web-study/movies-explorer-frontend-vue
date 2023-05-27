@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useField, useForm, useIsFormValid, useIsFormDirty } from 'vee-validate';
 import { object, string } from 'yup';
 import { toTypedSchema } from '@vee-validate/yup';
 import ContentContainer from '@/components/UI/ContentContainer.vue';
 import AppHeader from '@/components/AppHeader.vue';
+import { useUserStore } from '@/stores/user';
 
-const currentUser = {
-  name: 'tst',
-  email: 'tst@tst',
-};
+const { user: currentUser } = storeToRefs(useUserStore());
 
 const schema = toTypedSchema(
   object({
@@ -25,7 +24,10 @@ const schema = toTypedSchema(
   }),
 );
 
-const initialValues = { name: currentUser.name, email: currentUser.email };
+const initialValues = {
+  name: currentUser.value?.name ?? '',
+  email: currentUser.value?.email ?? '',
+};
 
 const { handleSubmit } = useForm({
   validationSchema: schema,
@@ -40,7 +42,7 @@ const disabled = computed(() => {
   return (
     !isValid.value ||
     !isDirty.value ||
-    (name.value === currentUser.name && email.value === currentUser.email)
+    (name.value === currentUser.value?.name && email.value === currentUser.value?.email)
   );
 });
 
@@ -60,7 +62,7 @@ const onSubmit = handleSubmit((values) => console.log(values));
       <h1
         class="text-center text-[24px] leading-[29px] font-medium mb-20 min-[500px]:mb-24 xl:mb-[123px]"
       >
-        {{ `Привет, ${currentUser.name}!` }}
+        {{ `Привет, ${currentUser?.name ?? ''}!` }}
       </h1>
       <label
         class="flex justify-between pb-4 text-[11px] leading-[13px] font-medium border-b border-b-[#424242]"

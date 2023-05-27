@@ -4,6 +4,7 @@ interface LinkProps {
     name: string;
   };
   class?: string;
+  activeClass?: string;
 }
 
 const props = defineProps<LinkProps>();

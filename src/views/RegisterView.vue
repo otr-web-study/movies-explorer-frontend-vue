@@ -4,7 +4,7 @@ import { useForm, useIsFormValid, useIsFormDirty } from 'vee-validate';
 import { object, string } from 'yup';
 import { toTypedSchema } from '@vee-validate/yup';
 import ContentContainer from '@/components/UI/ContentContainer.vue';
-import AppLogo from '@/components/AppLogo.vue';
+import AppLogo from '@/components/UI/AppLogo.vue';
 import AppLink from '@/components/AppLink.vue';
 import InputWhithValidation from '@/components/InputWhithValidation.vue';
 
