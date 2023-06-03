@@ -12,7 +12,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.15",
     "@vee-validate/yup": "^4.9.5",
+    "@vue/apollo-composable": "^4.0.0-beta.5",
+    "graphql": "^16.6.0",
     "pinia": "^2.0.36",
     "vee-validate": "^4.9.5",
     "vue": "^3.3.2",
@@ -20,6 +23,7 @@
     "yup": "^1.1.1"
   },
   "devDependencies": {
+    "@rollup/plugin-graphql": "^2.0.3",
     "@rushstack/eslint-patch": "^1.2.0",
     "@tsconfig/node18": "^2.0.1",
     "@types/node": "^18.16.8",

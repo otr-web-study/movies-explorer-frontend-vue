@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import ContentContainer from '@/components/UI/ContentContainer.vue';
 import AppHeader from '@/components/AppHeader.vue';
 import AppFooter from '@/components/AppFooter.vue';
 import SearchForm from '@/components/SearchForm.vue';
+import MoviesCard from '@/components/MoviesCard.vue';
+import MoviesListContainer from '@/components/MoviesListContainer.vue';
+import { useMoviesStore } from '@/stores/useMoviesStore';
+import { useMoviesLimits } from '@/hooks/useMoviesLimits';
 
-const isMoreMovies = ref(true);
-const onMoreClick = () => {};
+const MoviesStore = useMoviesStore();
+const { handleSearch, nextPage } = MoviesStore;
+const { onlyShort, searchString, visibleMovies, isMoreMovies } = storeToRefs(MoviesStore);
+useMoviesLimits();
 </script>
 
 <template>
@@ -14,11 +21,20 @@ const onMoreClick = () => {};
     <div>
       <AppHeader />
       <section class="flex flex-col bg-[#202020]">
-        <SearchForm :search-string="'tst'" :only-short="true" />
+        <SearchForm
+          :search-string="searchString"
+          :only-short="onlyShort"
+          @search-submit="handleSearch"
+        />
+        <MoviesListContainer>
+          <li v-for="movie in visibleMovies" :key="movie.movieId">
+            <MoviesCard :movie="movie" />
+          </li>
+        </MoviesListContainer>
         <button
           v-if="isMoreMovies"
           class="w-60 h-9 mt-[50px] mb-20 mx-auto bg-[#2F2F2F] text-[12px] leading-[15px] text-white font-medium rounded-md transition-opacity hover:opacity-80 md:w-80"
-          @click="onMoreClick"
+          @click="nextPage"
         >
           Ещё
         </button>
@@ -27,7 +43,5 @@ const onMoreClick = () => {};
     <AppFooter />
   </ContentContainer>
 </template>
-
-<!-- <MoviesCardList movies="{movies}" /> -->
 
 <!-- {isPending && <Preloader />} -->

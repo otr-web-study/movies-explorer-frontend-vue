@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import ExternalLink from '@/components/ExternalLink.vue';
 import { formatTime } from '@/utils/formatTime';
 import type { Movie } from '@/types';
+import { IMAGE_BASE_URL } from '@/constants';
 
 const props = defineProps<{ movie: Movie }>();
 const time = computed(() => formatTime(props.movie.duration));
@@ -12,7 +13,7 @@ const time = computed(() => formatTime(props.movie.duration));
   <div className="relative flex flex-col">
     <ExternalLink :href="props.movie.trailerLink" className="peer">
       <img
-        :src="props.movie.image"
+        :src="`${IMAGE_BASE_URL}${props.movie.image}`"
         :alt="props.movie.nameRU"
         className="w-[300px] h-[188px] object-cover object-center rounded-md min-[600px]:w-[339px] min-[600px]:h-[190px] min-[1000px]:w-full min-[1000px]:h-[201px] min-[1000px]:max-w-[360px]"
       />

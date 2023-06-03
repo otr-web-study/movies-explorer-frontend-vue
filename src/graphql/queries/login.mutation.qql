@@ -1,0 +1,7 @@
+mutation($data: LoginInput) {
+  login(data: $data) {
+    _id,
+    name,
+    email
+  }
+}
