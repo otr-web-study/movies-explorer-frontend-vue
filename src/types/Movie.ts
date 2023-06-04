@@ -1,26 +1,25 @@
-export interface Movie {
+interface ProtoMovie {
   country: string;
   director: string;
   duration: number;
   year: string;
   description: string;
-  image: string;
   trailerLink: string;
-  thumbnail: string;
   movieId: number;
   nameRU: string;
   nameEN: string;
 }
 
-export interface ExternalMovie {
-  country: string;
-  director: string;
-  duration: number;
-  year: string;
-  description: string;
+export interface Movie extends ProtoMovie {
+  image: string;
+  thumbnail: string;
+}
+
+export interface ExternalMovie extends ProtoMovie {
   image: { url: string; formats: { thumbnail: { url: string } } };
-  trailerLink: string;
   id: number;
-  nameRU: string;
-  nameEN: string;
+}
+
+export interface SavedMovie extends Movie {
+  _id: string;
 }

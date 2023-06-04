@@ -6,9 +6,9 @@ import { object, string } from 'yup';
 import { toTypedSchema } from '@vee-validate/yup';
 import ContentContainer from '@/components/UI/ContentContainer.vue';
 import AppHeader from '@/components/AppHeader.vue';
-import { useUserStore } from '@/stores/user';
+import { useAppControlsStore } from '@/stores/useAppControlsStore';
 
-const { user: currentUser } = storeToRefs(useUserStore());
+const { user: currentUser } = storeToRefs(useAppControlsStore());
 
 const schema = toTypedSchema(
   object({
