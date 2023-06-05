@@ -5,15 +5,17 @@ import type { SearchArgs } from '@/types';
 import api from '@/utils/moviesApi';
 import { convertMovies } from '@/utils/convertMovies';
 import { isMovieMatched } from '@/utils/searchHelpers';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 export const useMoviesStore = defineStore('movies', () => {
+  const { setValues, getValue } = useLocalStorage();
   const movies = ref<Movie[]>([]);
   const pending = ref<boolean>(false);
-  const searchString = ref<string>('');
-  const onlyShort = ref<boolean>(false);
+  const searchString = ref<string>(getValue('searchString', ''));
+  const onlyShort = ref<boolean>(getValue('onlyShort', false));
   const page = ref<number>(0);
-  const moviesLimit = ref<number>(9);
-  const moviesMore = ref<number>(3);
+  const moviesLimit = ref<number>(0);
+  const moviesMore = ref<number>(0);
 
   const filteredMovies = computed(() =>
     movies.value.filter((movie) => isMovieMatched(movie, searchString.value, onlyShort.value)),
@@ -27,6 +29,11 @@ export const useMoviesStore = defineStore('movies', () => {
     searchString.value = searchArgs.searchString;
     onlyShort.value = searchArgs.onlyShort;
     page.value = 0;
+
+    setValues({
+      searchString: searchString.value,
+      onlyShort: onlyShort.value,
+    });
   };
 
   const nextPage = () => {
@@ -43,6 +50,12 @@ export const useMoviesStore = defineStore('movies', () => {
     pending.value = false;
   };
 
+  const onLogout = () => {
+    searchString.value = '';
+    onlyShort.value = false;
+    page.value = 0;
+  };
+
   loadMovies();
 
   return {
@@ -53,7 +66,9 @@ export const useMoviesStore = defineStore('movies', () => {
     moviesLimit,
     moviesMore,
     isMoreMovies,
+    pending,
     handleSearch,
     nextPage,
+    onLogout,
   };
 });

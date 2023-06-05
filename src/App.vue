@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import PageConteiner from './components/UI/PageConteiner.vue';
+import PageContainer from './components/UI/PageContainer.vue';
+import RouterWithAuth from './components/RouterWithAuth.vue';
 </script>
 
 <template>
-  <PageConteiner>
-    <RouterView />
-  </PageConteiner>
+  <PageContainer>
+    <RouterWithAuth />
+  </PageContainer>
 </template>

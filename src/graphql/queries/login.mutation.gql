@@ -1,7 +1,5 @@
 mutation Login($data: LoginInput) {
   login(data: $data) {
-    _id,
-    name,
-    email
+    token
   }
 }

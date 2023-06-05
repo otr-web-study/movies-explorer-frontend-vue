@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, reactive } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { useMoviesStore } from '@/stores/useMoviesStore';
 import {
   WIDTH_DESKTOP,
@@ -48,4 +48,6 @@ export const useMoviesLimits = () => {
   onUnmounted(() => {
     window.removeEventListener('resize', handleResize);
   });
+
+  handleResize();
 };

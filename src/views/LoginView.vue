@@ -7,6 +7,9 @@ import ContentContainer from '@/components/UI/ContentContainer.vue';
 import AppLogo from '@/components/UI/AppLogo.vue';
 import AppLink from '@/components/AppLink.vue';
 import InputWhithValidation from '@/components/InputWhithValidation.vue';
+import { useLogin } from '@/hooks/useLogin';
+
+const { login } = useLogin();
 
 const schema = toTypedSchema(
   object({
@@ -17,7 +20,7 @@ const schema = toTypedSchema(
 
 const { handleSubmit } = useForm({ validationSchema: schema });
 
-const onSubmit = handleSubmit((values) => console.log(values));
+const onSubmit = handleSubmit((values) => login({ data: values }));
 
 const isValid = useIsFormValid();
 const isDirty = useIsFormDirty();

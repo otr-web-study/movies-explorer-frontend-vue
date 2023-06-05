@@ -1,11 +1,30 @@
 import { ref, computed } from 'vue';
-import { defineStore } from 'pinia';
+import { defineStore, storeToRefs } from 'pinia';
 
+import { useMoviesStore } from '@/stores/useMoviesStore';
 import type { User } from '@/types';
 
-export const useAppControlsStore = defineStore('user', () => {
-  const user = ref<User | null>({ name: 'tst', email: 'tst@tst.com' });
+export const useAppControlsStore = defineStore('controls', () => {
+  const user = ref<User | null>(null);
   const isLoggedIn = computed(() => user.value !== null);
+  const mainApiPending = ref(false);
+  const infoMessage = ref('');
 
-  return { user, isLoggedIn };
+  const { pending: isMoviesApiPending } = storeToRefs(useMoviesStore());
+
+  const isPending = computed(() => mainApiPending.value || isMoviesApiPending.value);
+
+  const logout = () => {
+    user.value = null;
+  };
+
+  const setMainApiPending = (value: boolean) => {
+    mainApiPending.value = value;
+  };
+
+  const setError = (value: string) => {
+    infoMessage.value = value;
+  };
+
+  return { user, isLoggedIn, isPending, infoMessage, logout, setMainApiPending, setError };
 });

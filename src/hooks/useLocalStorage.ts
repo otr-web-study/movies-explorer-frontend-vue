@@ -5,7 +5,7 @@ type KeyStoredValues =
   | 'savedSearchString'
   | 'savedOnlyShort';
 type StoredValues = string | boolean;
-interface StorageValues extends Record<KeyStoredValues, StoredValues> {}
+interface StorageValues extends Partial<Record<KeyStoredValues, StoredValues>> {}
 
 export const useLocalStorage = () => {
   const setValues = (values: StorageValues): void => {
@@ -15,8 +15,18 @@ export const useLocalStorage = () => {
   };
 
   const getValue = <T extends StoredValues>(key: KeyStoredValues, defaultValue: T): T => {
-    return JSON.parse(localStorage.getItem(key) ?? '') ?? defaultValue;
+    return JSON.parse(localStorage.getItem(key) ?? 'null') ?? defaultValue;
   };
 
-  return { setValues, getValue };
+  const setDefaultValues = () => {
+    setValues({
+      onlyShort: false,
+      searchString: '',
+      token: '',
+      savedOnlyShort: false,
+      savedSearchString: '',
+    });
+  };
+
+  return { setValues, getValue, setDefaultValues };
 };

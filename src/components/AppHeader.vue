@@ -3,9 +3,9 @@ import { storeToRefs } from 'pinia';
 import AppLogo from '@/components/UI/AppLogo.vue';
 import MainNavigation from './MainNavigation.vue';
 import ExtendedNavigation from './ExtendedNavigation.vue';
-import { useUserStore } from '@/stores/useAppControls';
+import { useAppControlsStore } from '@/stores/useAppControlsStore';
 
-const { isLoggedIn } = storeToRefs(useUserStore());
+const { isLoggedIn } = storeToRefs(useAppControlsStore());
 </script>
 
 <template>

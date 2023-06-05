@@ -1,13 +1,30 @@
-import { useQuery } from '@vue/apollo-composable';
-import GET_CURRENT_USER from '@/graphql/queries/currentUser.query.gql';
-import type { User } from '@/types';
+import { useAppControlsStore } from '@/stores/useAppControlsStore';
+import { useLocalStorage } from './useLocalStorage';
+import { useMoviesStore } from '@/stores/useMoviesStore';
+import { useMainApi } from './useMainApi';
+import { watchEffect } from 'vue';
 
 export const useAuth = () => {
-  const getCurrentUser = () => {
-    const { result, loading, onResult, onError } = useQuery<User>(GET_CURRENT_USER);
+  const controlsStore = useAppControlsStore();
+  const { getValue, setDefaultValues } = useLocalStorage();
 
-    return { user: result, loading, onResult, onError };
+  const checkLoggedIn = () => {
+    const { getCurrentUser } = useMainApi();
+    const token = getValue('token', '');
+    if (token) {
+      getCurrentUser();
+    } else {
+      controlsStore.logout();
+    }
   };
 
-  return { getCurrentUser };
+  watchEffect(() => {
+    if (!controlsStore.isLoggedIn) {
+      const { onLogout } = useMoviesStore();
+      onLogout();
+      setDefaultValues();
+    }
+  });
+
+  checkLoggedIn();
 };
