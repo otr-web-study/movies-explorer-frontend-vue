@@ -20,7 +20,7 @@ const schema = toTypedSchema(
 
 const { handleSubmit } = useForm({ validationSchema: schema });
 
-const onSubmit = handleSubmit((values) => login({ data: values }));
+const onSubmit = handleSubmit((values) => login(values));
 
 const isValid = useIsFormValid();
 const isDirty = useIsFormDirty();

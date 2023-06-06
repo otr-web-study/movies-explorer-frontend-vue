@@ -1,6 +1,5 @@
 import { ref, computed } from 'vue';
 import { defineStore, storeToRefs } from 'pinia';
-
 import { useMoviesStore } from '@/stores/useMoviesStore';
 import type { User } from '@/types';
 
@@ -14,10 +13,6 @@ export const useAppControlsStore = defineStore('controls', () => {
 
   const isPending = computed(() => mainApiPending.value || isMoviesApiPending.value);
 
-  const logout = () => {
-    user.value = null;
-  };
-
   const setMainApiPending = (value: boolean) => {
     mainApiPending.value = value;
   };
@@ -26,5 +21,5 @@ export const useAppControlsStore = defineStore('controls', () => {
     infoMessage.value = value;
   };
 
-  return { user, isLoggedIn, isPending, infoMessage, logout, setMainApiPending, setError };
+  return { user, isLoggedIn, isPending, infoMessage, setMainApiPending, setError };
 });

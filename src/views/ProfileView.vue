@@ -7,8 +7,11 @@ import { toTypedSchema } from '@vee-validate/yup';
 import ContentContainer from '@/components/UI/ContentContainer.vue';
 import AppHeader from '@/components/AppHeader.vue';
 import { useAppControlsStore } from '@/stores/useAppControlsStore';
+import { useUpdateUser } from '@/hooks/useUpdateUser';
 
-const { user: currentUser } = storeToRefs(useAppControlsStore());
+const store = useAppControlsStore();
+const { user: currentUser } = storeToRefs(store);
+const { updateUser } = useUpdateUser();
 
 const schema = toTypedSchema(
   object({
@@ -46,7 +49,11 @@ const disabled = computed(() => {
   );
 });
 
-const onSubmit = handleSubmit((values) => console.log(values));
+const onSubmit = handleSubmit((values) => updateUser(values));
+
+const handleLogout = () => {
+  store.user = null;
+};
 </script>
 
 <template>
@@ -110,10 +117,11 @@ const onSubmit = handleSubmit((values) => console.log(values));
         }"
         :disabled="disabled"
       >
-        Редактировать
+        Сохранить
       </button>
       <button
         class="w-full mt-[15px] text-[#EE3465] font-medium text-[12px] leading-[15px] transition-opacity hover:opacity-80 min-[500px]:text-[13px] min-[500px]:leading-[16px]"
+        @click="handleLogout"
       >
         Выйти из аккаунта
       </button>

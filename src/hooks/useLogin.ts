@@ -1,22 +1,29 @@
-import { useMutation, useQuery } from '@vue/apollo-composable';
+import { watchEffect } from 'vue';
+import { useRouter } from 'vue-router';
+import { useMutation } from '@vue/apollo-composable';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useAppControlsStore } from '@/stores/useAppControlsStore';
-import GET_CURRENT_USER from '@/graphql/queries/currentUser.query.gql';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 import LOGIN from '@/graphql/queries/login.mutation.gql';
 import type { User } from '@/types';
-import { watchEffect } from 'vue';
+
+interface LoginArgs extends Pick<User, 'email'> {
+  password: string;
+}
 
 export const useLogin = () => {
   const store = useAppControlsStore();
+  const router = useRouter();
   const { setValues } = useLocalStorage();
-  const {
-    mutate: login,
-    onError,
-    onDone,
-    loading,
-  } = useMutation(LOGIN, {
+  const { getCurrentUser, onResult: onCurrentUserResult } = useCurrentUser();
+  const { mutate, onError, onDone, loading } = useMutation(LOGIN, {
     context: { withAuth: false },
+    fetchPolicy: 'no-cache',
   });
+
+  const login = (args: LoginArgs) => {
+    mutate({ data: args });
+  };
 
   onError((err) => {
     store.setError('Что-то пошло не так, не удалось войти в систему.');
@@ -30,18 +37,13 @@ export const useLogin = () => {
     }
 
     setValues({ token });
-    const { onResult, onError: onQueryError } = useQuery<User>(GET_CURRENT_USER, {
-      context: { withAuth: true },
-    });
+    getCurrentUser();
+  });
 
-    onQueryError((err) => {
-      store.setError('Что-то пошло не так, не удалось получить данные пользователя.');
-      console.log(err);
-    });
-
-    onResult(({ data: user }) => {
-      store.user = user;
-    });
+  onCurrentUserResult((success) => {
+    if (success) {
+      router.push({ name: 'home' });
+    }
   });
 
   watchEffect(() => {

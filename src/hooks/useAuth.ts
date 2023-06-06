@@ -1,30 +1,31 @@
-import { useAppControlsStore } from '@/stores/useAppControlsStore';
 import { useLocalStorage } from './useLocalStorage';
 import { useMoviesStore } from '@/stores/useMoviesStore';
-import { useMainApi } from './useMainApi';
-import { watchEffect } from 'vue';
+import { useCurrentUser } from './useCurrentUser';
 
 export const useAuth = () => {
-  const controlsStore = useAppControlsStore();
   const { getValue, setDefaultValues } = useLocalStorage();
+  const { getCurrentUser, onResult } = useCurrentUser();
+  const { onLogout } = useMoviesStore();
+
+  const logout = () => {
+    onLogout();
+    setDefaultValues();
+  };
+
+  onResult((success) => {
+    if (!success) {
+      logout();
+    }
+  });
 
   const checkLoggedIn = () => {
-    const { getCurrentUser } = useMainApi();
     const token = getValue('token', '');
     if (token) {
       getCurrentUser();
     } else {
-      controlsStore.logout();
+      logout();
     }
   };
-
-  watchEffect(() => {
-    if (!controlsStore.isLoggedIn) {
-      const { onLogout } = useMoviesStore();
-      onLogout();
-      setDefaultValues();
-    }
-  });
 
   checkLoggedIn();
 };
