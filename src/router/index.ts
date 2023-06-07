@@ -4,6 +4,7 @@ import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import ProfileView from '@/views/ProfileView.vue';
 import MoviesView from '@/views/MoviesView.vue';
+import SavedMoviewView from '@/views/SavedMoviesView.vue';
 import NotFound from '@/views/NotFound.vue';
 
 const router = createRouter({
@@ -14,7 +15,7 @@ const router = createRouter({
     { path: '/signin', name: 'signin', component: LoginView },
     { path: '/profile', name: 'profile', component: ProfileView },
     { path: '/movies', name: 'movies', component: MoviesView },
-    { path: '/saved-movies', name: 'saved-movies', component: MainView },
+    { path: '/saved-movies', name: 'saved-movies', component: SavedMoviewView },
     { path: '/:catchAll(.*)*', component: NotFound },
   ],
 });

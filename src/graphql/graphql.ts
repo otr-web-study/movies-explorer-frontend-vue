@@ -33,7 +33,19 @@ export const provideGraphqlClient = () => {
     return forward(operation);
   });
 
-  const cache = new InMemoryCache();
+  const cache = new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          movies: {
+            merge(existing, incoming) {
+              return incoming;
+            },
+          },
+        },
+      },
+    },
+  });
 
   const apolloClient = new ApolloClient({
     link: concat(authMiddleware, httpLink),

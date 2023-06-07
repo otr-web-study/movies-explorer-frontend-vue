@@ -8,6 +8,7 @@ export const useAppControlsStore = defineStore('controls', () => {
   const isLoggedIn = computed(() => user.value !== null);
   const mainApiPending = ref(false);
   const infoMessage = ref('');
+  const isError = ref(false);
 
   const { pending: isMoviesApiPending } = storeToRefs(useMoviesStore());
 
@@ -19,7 +20,13 @@ export const useAppControlsStore = defineStore('controls', () => {
 
   const setError = (value: string) => {
     infoMessage.value = value;
+    isError.value = true;
   };
 
-  return { user, isLoggedIn, isPending, infoMessage, setMainApiPending, setError };
+  const setMessage = (value: string) => {
+    infoMessage.value = value;
+    isError.value = false;
+  };
+
+  return { user, isLoggedIn, isPending, infoMessage, setMainApiPending, setError, setMessage };
 });

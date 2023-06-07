@@ -23,3 +23,7 @@ export interface ExternalMovie extends ProtoMovie {
 export interface SavedMovie extends Movie {
   _id: string;
 }
+
+export interface PreparedMovie extends Movie {
+  saved: boolean;
+}

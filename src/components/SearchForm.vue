@@ -6,16 +6,25 @@ import { toTypedSchema } from '@vee-validate/yup';
 import FilterCheckbox from '@/components/FilterCheckbox.vue';
 import type { SearchArgs } from '@/types';
 
+interface SearchFormProps extends SearchArgs {
+  searchStringRequired?: boolean;
+}
+
 interface SearchSubmitEvent {
   (e: 'search-submit', value: SearchArgs): void;
 }
 
-const props = defineProps<SearchArgs>();
+const props = defineProps<SearchFormProps>();
 const emits = defineEmits<SearchSubmitEvent>();
+
+let searchStringValidation = string();
+if (props.searchStringRequired) {
+  searchStringValidation = searchStringValidation.required('Нужно ввести ключевое слово.');
+}
 
 const schema = toTypedSchema(
   object({
-    search: string().required('Поле обязательно к заполнению.'),
+    search: searchStringValidation,
   }),
 );
 
