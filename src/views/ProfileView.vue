@@ -8,10 +8,12 @@ import ContentContainer from '@/components/UI/ContentContainer.vue';
 import AppHeader from '@/components/AppHeader.vue';
 import { useAppControlsStore } from '@/stores/useAppControlsStore';
 import { useUpdateUser } from '@/hooks/useUpdateUser';
+import { useLogout } from '@/hooks/useLogout';
 
 const store = useAppControlsStore();
 const { user: currentUser } = storeToRefs(store);
 const { updateUser } = useUpdateUser();
+const { logout } = useLogout();
 
 const schema = toTypedSchema(
   object({
@@ -50,10 +52,6 @@ const disabled = computed(() => {
 });
 
 const onSubmit = handleSubmit((values) => updateUser(values));
-
-const handleLogout = () => {
-  store.user = null;
-};
 </script>
 
 <template>
@@ -120,8 +118,9 @@ const handleLogout = () => {
         Сохранить
       </button>
       <button
+        type="button"
         class="w-full mt-[15px] text-[#EE3465] font-medium text-[12px] leading-[15px] transition-opacity hover:opacity-80 min-[500px]:text-[13px] min-[500px]:leading-[16px]"
-        @click="handleLogout"
+        @click="logout"
       >
         Выйти из аккаунта
       </button>

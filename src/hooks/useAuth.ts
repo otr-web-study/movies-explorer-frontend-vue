@@ -1,21 +1,23 @@
-import { useLocalStorage } from './useLocalStorage';
-import { useMoviesStore } from '@/stores/useMoviesStore';
-import { useCurrentUser } from './useCurrentUser';
+import { watchEffect } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
+import { useLogout } from '@/hooks/useLogout';
+import { useAppControlsStore } from '@/stores/useAppControlsStore';
 
 export const useAuth = () => {
-  const { getValue, setDefaultValues } = useLocalStorage();
+  const store = useAppControlsStore();
+  const { getValue } = useLocalStorage();
   const { getCurrentUser, onResult } = useCurrentUser();
-  const { onLogout } = useMoviesStore();
-
-  const logout = () => {
-    onLogout();
-    setDefaultValues();
-  };
+  const { logout } = useLogout();
+  const router = useRouter();
+  const route = useRoute();
 
   onResult((success) => {
     if (!success) {
       logout();
     }
+    store.isAuthChecked = true;
   });
 
   const checkLoggedIn = () => {
@@ -24,8 +26,18 @@ export const useAuth = () => {
       getCurrentUser();
     } else {
       logout();
+      store.isAuthChecked = true;
     }
   };
 
-  checkLoggedIn();
+  watchEffect(() => {
+    if (store.isAuthChecked) {
+      const path = route.query.redirect?.toString();
+      if (path) {
+        router.push({ path });
+      }
+    }
+  });
+
+  return { checkLoggedIn };
 };

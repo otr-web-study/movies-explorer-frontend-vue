@@ -9,10 +9,13 @@ export const useAppControlsStore = defineStore('controls', () => {
   const mainApiPending = ref(false);
   const infoMessage = ref('');
   const isError = ref(false);
+  const isAuthChecked = ref(false);
 
   const { pending: isMoviesApiPending } = storeToRefs(useMoviesStore());
 
-  const isPending = computed(() => mainApiPending.value || isMoviesApiPending.value);
+  const isPending = computed(
+    () => mainApiPending.value || isMoviesApiPending.value || !isAuthChecked.value,
+  );
 
   const setMainApiPending = (value: boolean) => {
     mainApiPending.value = value;
@@ -23,10 +26,26 @@ export const useAppControlsStore = defineStore('controls', () => {
     isError.value = true;
   };
 
+  const clearInfoMessage = () => {
+    infoMessage.value = '';
+    isError.value = false;
+  };
+
   const setMessage = (value: string) => {
     infoMessage.value = value;
     isError.value = false;
   };
 
-  return { user, isLoggedIn, isPending, infoMessage, setMainApiPending, setError, setMessage };
+  return {
+    user,
+    isLoggedIn,
+    isPending,
+    infoMessage,
+    isError,
+    isAuthChecked,
+    setMainApiPending,
+    setError,
+    setMessage,
+    clearInfoMessage,
+  };
 });

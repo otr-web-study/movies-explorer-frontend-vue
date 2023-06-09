@@ -49,10 +49,11 @@ const handleChecboxChange = (value: boolean) => {
 <template>
   <form
     class="flex flex-col pt-20 px-[14px] md:px-[30px] xl:px-[70px]"
-    @submit.prevent="onSubmit"
     name="searchForm"
     id="searchForm"
     noValidate
+    @submit.prevent="onSubmit"
+    @keydown.enter="onSubmit"
   >
     <div class="grid grid-cols-[1fr_min-content] items-center gap-[10px]">
       <input

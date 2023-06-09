@@ -7,7 +7,6 @@ import App from './App.vue';
 import router from './router';
 import { provideGraphqlClient } from './graphql/graphql';
 
-// const app = createApp(App);
 const app = createApp({
   setup() {
     provideGraphqlClient();

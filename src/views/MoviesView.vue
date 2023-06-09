@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import ContentContainer from '@/components/UI/ContentContainer.vue';
 import AppHeader from '@/components/AppHeader.vue';
@@ -15,9 +15,9 @@ import { useDeleteMovie } from '@/hooks/useDeleteMovie';
 import type { PreparedMovie, SavedMovie } from '@/types';
 
 useMoviesLimits();
-const MoviesStore = useMoviesStore();
-const { handleSearch, nextPage } = MoviesStore;
-const { onlyShort, searchString, visibleMovies, isMoreMovies } = storeToRefs(MoviesStore);
+const moviesStore = useMoviesStore();
+const { handleSearch, nextPage } = moviesStore;
+const { onlyShort, searchString, visibleMovies, isMoreMovies } = storeToRefs(moviesStore);
 const { movies: savedMovies } = useMovies();
 const { createMovie } = useCreateMovie();
 const { deleteMovie } = useDeleteMovie();
