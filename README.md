@@ -25,7 +25,7 @@
 Клонировать репозиторий и перейти в папку проекта
 
 ```sh
-git clone https://github.com/otr-web-study/movies-explorer-frontend-vue.git && cd movies-explorer-frontend
+git clone https://github.com/otr-web-study/movies-explorer-frontend-vue.git && cd movies-explorer-frontend-vue
 ```
 
 Установить зависимости
