@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { onMounted, onUnmounted } from 'vue';
-import { ENTER_KEY } from '@/constants';
+import { watchEffect } from 'vue';
 import { useAppControlsStore } from '@/stores/useAppControlsStore';
 
 const { isPending, isAuthChecked } = storeToRefs(useAppControlsStore());
 
 const handleEnterClick = (evt: KeyboardEvent) => {
-  if (evt.key === ENTER_KEY) {
-    evt.preventDefault();
-  }
+  evt.preventDefault();
 };
 
-onMounted(() => window.addEventListener('keydown', handleEnterClick));
-
-onUnmounted(() => window.removeEventListener('keydown', handleEnterClick));
+watchEffect(() => {
+  if (isPending.value) {
+    window.addEventListener('keydown', handleEnterClick);
+  } else {
+    window.removeEventListener('keydown', handleEnterClick);
+  }
+});
 </script>
 
 <template>

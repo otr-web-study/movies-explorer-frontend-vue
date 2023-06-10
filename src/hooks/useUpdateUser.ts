@@ -25,6 +25,7 @@ export const useUpdateUser = () => {
   onDone(({ data: { updateUser } }) => {
     if (updateUser) {
       store.user = updateUser;
+      store.setMessage('Данные пользователя успешно обновлены.');
     }
   });
 

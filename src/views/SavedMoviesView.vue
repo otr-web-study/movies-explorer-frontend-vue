@@ -5,6 +5,7 @@ import AppFooter from '@/components/AppFooter.vue';
 import SearchForm from '@/components/SearchForm.vue';
 import MoviesCard from '@/components/MoviesCard.vue';
 import MoviesListContainer from '@/components/MoviesListContainer.vue';
+import MoviesListEmpty from '@/components/MoviesListEmpty.vue';
 import { useSavedMovies } from '@/hooks/useSavedMovies';
 import { useDeleteMovie } from '@/hooks/useDeleteMovie';
 
@@ -22,7 +23,8 @@ const { deleteMovie } = useDeleteMovie();
           :only-short="onlyShort"
           @search-submit="handleSearch"
         />
-        <MoviesListContainer>
+        <MoviesListEmpty v-if="!movies.length && (searchString || onlyShort)" />
+        <MoviesListContainer v-else>
           <li v-for="movie in movies" :key="movie.movieId">
             <MoviesCard :movie="movie">
               <button

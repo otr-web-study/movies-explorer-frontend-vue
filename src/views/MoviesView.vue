@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue';
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import ContentContainer from '@/components/UI/ContentContainer.vue';
 import AppHeader from '@/components/AppHeader.vue';
@@ -7,6 +7,7 @@ import AppFooter from '@/components/AppFooter.vue';
 import SearchForm from '@/components/SearchForm.vue';
 import MoviesCard from '@/components/MoviesCard.vue';
 import MoviesListContainer from '@/components/MoviesListContainer.vue';
+import MoviesListEmpty from '@/components/MoviesListEmpty.vue';
 import { useMoviesStore } from '@/stores/useMoviesStore';
 import { useMoviesLimits } from '@/hooks/useMoviesLimits';
 import { useMovies } from '@/hooks/useMovies';
@@ -16,11 +17,16 @@ import type { PreparedMovie, SavedMovie } from '@/types';
 
 useMoviesLimits();
 const moviesStore = useMoviesStore();
-const { handleSearch, nextPage } = moviesStore;
-const { onlyShort, searchString, visibleMovies, isMoreMovies } = storeToRefs(moviesStore);
+const { loadMovies, handleSearch, nextPage } = moviesStore;
+const { moviesLoaded, onlyShort, searchString, visibleMovies, isMoreMovies } =
+  storeToRefs(moviesStore);
 const { movies: savedMovies } = useMovies();
 const { createMovie } = useCreateMovie();
 const { deleteMovie } = useDeleteMovie();
+
+if (!moviesLoaded.value) {
+  loadMovies();
+}
 
 const preparedMovies = computed(() =>
   visibleMovies.value.map((m) => ({
@@ -54,7 +60,10 @@ const handleLikeClick = (preparedMovie: PreparedMovie) => {
           :search-string-required="true"
           @search-submit="handleSearch"
         />
-        <MoviesListContainer>
+        <MoviesListEmpty
+          v-if="moviesLoaded && !preparedMovies.length && (searchString || onlyShort)"
+        />
+        <MoviesListContainer v-else>
           <li v-for="movie in preparedMovies" :key="movie.movieId">
             <MoviesCard :movie="movie">
               <button
@@ -84,5 +93,3 @@ const handleLikeClick = (preparedMovie: PreparedMovie) => {
     <AppFooter />
   </ContentContainer>
 </template>
-
-<!-- {isPending && <Preloader />} -->

@@ -25,6 +25,8 @@ export const useMoviesStore = defineStore('movies', () => {
   );
   const isMoreMovies = computed(() => filteredMovies.value.length > visibleMovies.value.length);
 
+  const moviesLoaded = computed(() => movies.value.length > 0);
+
   const handleSearch = (searchArgs: SearchArgs) => {
     searchString.value = searchArgs.searchString;
     onlyShort.value = searchArgs.onlyShort;
@@ -56,17 +58,17 @@ export const useMoviesStore = defineStore('movies', () => {
     page.value = 0;
   };
 
-  loadMovies();
-
   return {
     visibleMovies,
     searchString,
     onlyShort,
     page,
+    moviesLoaded,
     moviesLimit,
     moviesMore,
     isMoreMovies,
     pending,
+    loadMovies,
     handleSearch,
     nextPage,
     onLogout,
