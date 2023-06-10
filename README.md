@@ -1,46 +1,41 @@
-# movies-explorer-frontend-vue
+# Реализация фронтенда дипломного проекта Movies explorer на альтернативном стеке
 
-This template should help get you started developing with Vue 3 in Vite.
+### Описание
 
-## Recommended IDE Setup
+Сервис для ведения списка избранных фильмов,
+разработанный в ходе выполнения дипломного проекта
+учебной программы курса "Web-разработчик"
+обучающей платформы Яндекс.Практикум.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### Функциональность
 
-## Type Support for `.vue` Imports in TS
+- Авторизация пользователя
+- Отображение списка фильмов загруженных по api
+- Ведение списка понравившихся фильмов
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+### Технологии
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- tailwindcss
+- vue
+- typescript
+- Apollo graphql
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+### Инструкция по установке на локальный компьютер
 
-## Customize configuration
+Клонировать репозиторий и перейти в папку проекта
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+```sh
+git clone https://github.com/otr-web-study/movies-explorer-frontend-vue.git && cd movies-explorer-frontend
+```
 
-## Project Setup
+Установить зависимости
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+Запустить проект
 
 ```sh
 npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
