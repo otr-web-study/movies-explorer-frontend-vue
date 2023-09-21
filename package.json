@@ -15,7 +15,7 @@
     "@apollo/client": "^3.7.15",
     "@vee-validate/yup": "^4.9.5",
     "@vue/apollo-composable": "^4.0.0-beta.5",
-    "graphql": "^16.6.0",
+    "graphql": "^16.8.1",
     "pinia": "^2.0.36",
     "vee-validate": "^4.9.5",
     "vue": "^3.3.2",
